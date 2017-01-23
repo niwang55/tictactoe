@@ -45,6 +45,18 @@ var gameOver = function() {
     }
   }
 
+  // diagonals
+  var diag1 = matrix[0][0] + matrix[1][1] + matrix[2][2];
+  var diag2 = matrix[0][2] + matrix[1][1] + matrix[2][0];
+
+  if (diag1 === 'XXX' || diag2 === 'XXX') {
+    winner = 'X';
+    return true;
+  } else if (diag1 === 'OOO' || diag2 === 'OOO') {
+    winner = 'O';
+    return true;
+  }
+
   return false;
 };
 
