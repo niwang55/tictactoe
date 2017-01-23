@@ -13,6 +13,10 @@ var matrix = [
   [7, 8, 9]
 ];
 
+var gameOver = function() {
+  return false;
+};
+
 var display = function() {
   matrix.forEach( row => console.log(row) );
 };
@@ -36,21 +40,26 @@ var update = function(player, position) {
     }
   }
 
+  if (!gameOver()) {
+    prompt();
+  }
+
   display();
 };
 
-var gameOver = function() {
-  return false;
+var prompt = function() {
+  rl.question('Player ' + turn + '\'s turn, Enter a position\n', (position) => {
+    update(turn, parseInt(position));
+  });
+
+  if (turn === 1) {
+    turn = 2;
+  } else {
+    turn = 1;
+  }
 };
 
 display();
 
-var prompt = function() {
-  rl.question('Enter a position\n', (position) => {
-    update(1, parseInt(position));
-    rl.close();
-  });
-
-};
 
 prompt();
