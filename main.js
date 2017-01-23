@@ -14,6 +14,17 @@ var matrix = [
   [7, 8, 9]
 ];
 
+var allDone = function() {
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix.length; j++) {
+      if ( parseInt(matrix[i][j]) !== NaN) {
+        return false;
+      }
+    }
+  }
+  return true;
+};
+
 var gameOver = function() {
   // rows
   for (let i = 0; i < matrix.length; i++) {
@@ -57,6 +68,13 @@ var gameOver = function() {
     return true;
   }
 
+  // ties
+  console.log(allDone());
+  if (allDone()) {
+    winner = 'tie';
+    return true;
+  }
+
   return false;
 };
 
@@ -93,6 +111,7 @@ var update = function(player, position) {
 };
 
 var prompt = function() {
+  console.log('Player 1 is X, Player 2 is O');
   rl.question('Player ' + turn + '\'s turn, Enter a position\n', (position) => {
     update(turn, parseInt(position));
   });
@@ -105,6 +124,5 @@ var prompt = function() {
 };
 
 display();
-
 
 prompt();
