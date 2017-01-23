@@ -6,6 +6,7 @@ var rl = readline.createInterface({
 });
 
 var turn = 1;
+var winner;
 
 var matrix = [
   [1, 2, 3],
@@ -14,6 +15,36 @@ var matrix = [
 ];
 
 var gameOver = function() {
+  // rows
+  for (let i = 0; i < matrix.length; i++) {
+    let str = '';
+    for (let j = 0; j < matrix[i].length; j++) {
+      str += matrix[i][j];
+      if (str === 'OOO') {
+        winner = 'O';
+        return true;
+      } else if (str === 'XXX') {
+        winner = 'X';
+        return true;
+      }
+    }
+  }
+
+  // columns
+  for (let i = 0; i < matrix.length; i++) {
+    let str = '';
+    for (let j = 0; j < matrix[i].length; j++) {
+      str += matrix[j][i];
+      if (str === 'OOO') {
+        winner = 'O';
+        return true;
+      } else if (str === 'XXX') {
+        winner = 'X';
+        return true;
+      }
+    }
+  }
+
   return false;
 };
 
@@ -42,8 +73,10 @@ var update = function(player, position) {
 
   if (!gameOver()) {
     prompt();
+  } else {
+    console.log('winner is: ', winner);
+    rl.close();
   }
-
   display();
 };
 
